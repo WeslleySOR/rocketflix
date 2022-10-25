@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply font-poppins bg-[linear-gradient(67.08deg,_#1E46A3_0%,_#000000_48.94%,_#C12A23_99.97%)];
+}
