@@ -53,7 +53,7 @@ export function Home() {
       });
   };
   return (
-    <main className="h-screen flex flex-col items-center gap-8 py-32">
+    <main className="h-screen flex flex-col items-center justify-center gap-8">
       <div className="flex flex-col w-fit items-center gap-3">
         <div className="w-20 h-14">
           <img
@@ -67,8 +67,8 @@ export function Home() {
         </h1>
       </div>
       {Object.keys(actualMovie).length !== 0 && (
-        <div className="flex gap-9 min-w-max max-w-lg max-h-64 overflow-hidden">
-          <div className="w-48 h-64">
+        <div className="flex gap-9 min-w-max max-w-lg h-96 overflow-hidden">
+          <div className="w-auto h-96">
             <img
               className="h-full w-full"
               src={`${import.meta.env.VITE_IMG_URL}${
