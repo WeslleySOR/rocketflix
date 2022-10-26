@@ -1,29 +1,54 @@
 import { useState } from "react";
 import { instance } from "../services/axios";
 
+interface IMovieList {
+  page: number;
+  results: IMovieListItem[];
+  total_pages: number;
+  total_results: number;
+}
+
+interface IMovieListItem {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
 interface IMovie {
-  belongs_to_collection: {
-    backdrop_path: string;
-    id: number;
-    name: string;
-    poster_path: string;
-  }
+  poster_path: string;
   overview: string;
   title: string;
 }
 
 export function Home() {
   const [actualMovie, setActualMovie] = useState<IMovie>({} as IMovie);
+
   const getMoviesFromApi = async () => {
+    const randomNumber = Math.floor(Math.random()*499) + 1;
+    var discoverResponseMovies: IMovieListItem[] = [];
+    await instance
+    .get<IMovieList>(`https://api.themoviedb.org/3/discover/movie?api_key=e8aefbb791daa16e219a969379ba067e&language=pt-BR&page=${randomNumber}`)
+    .then(response => discoverResponseMovies = response.data.results);
+    const randomMovie = discoverResponseMovies[Math.floor(Math.random()*discoverResponseMovies.length)];
     await instance
       .get(
-        "/76341?api_key=" +
+        `/${randomMovie.id}?api_key=` +
           import.meta.env.VITE_API_KEY +
           "&" +
           import.meta.env.VITE_LANGUAGE
       )
       .then((response) => {
-        console.log(response.data);
         setActualMovie(response.data);
       });
   };
@@ -42,23 +67,22 @@ export function Home() {
         </h1>
       </div>
       {Object.keys(actualMovie).length !== 0 && (
-        <div className="flex gap-9">
+        <div className="flex gap-9 min-w-max max-w-lg max-h-64 overflow-hidden">
           <div className="w-48 h-64">
             <img
               className="h-full w-full"
               src={`${import.meta.env.VITE_IMG_URL}${
-                actualMovie.belongs_to_collection.poster_path
+                actualMovie.poster_path
               }`}
               alt={`Poster do filme ${actualMovie.title}`}
             />
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 max-w-xs">
             <h2 className="text-xl font-semibold text-[#FFFCF9]">{actualMovie.title}</h2>
-            <span className="max-w-md text-[#FFFCF9] text-base font-normal">{actualMovie.overview}</span>
+            <span className="text-[#FFFCF9] text-base font-normal overflow-y-auto">{actualMovie.overview !== "" ? actualMovie.overview : "Esse filme não tem uma descrição pré definida!"}</span>
           </div>
         </div>
       )}
-      {/* TODO: Aqui irá o component do filme escolhido */}
       <button
         onClick={() => getMoviesFromApi()}
         className="flex gap-4 justify-center items-center bg-[#E9E6E3] p-4 rounded-md"
