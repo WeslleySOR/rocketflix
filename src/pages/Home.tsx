@@ -53,7 +53,7 @@ export function Home() {
       });
   };
   return (
-    <main className="h-screen flex flex-col items-center justify-center gap-8">
+    <main className="min-h-screen flex flex-col items-center justify-center gap-8 pt-12 pb-16">
       <div className="flex flex-col w-fit items-center gap-3">
         <div className="w-20 h-14">
           <img
@@ -62,12 +62,12 @@ export function Home() {
             alt="Icone de sortear"
           />
         </div>
-        <h1 className="text-[#FFFCF9] text-4xl font-bold">
+        <h1 className="text-center text-[#FFFCF9] text-4xl font-bold lg:text-start">
           Não sabe o que assistir?
         </h1>
       </div>
       {Object.keys(actualMovie).length !== 0 && (
-        <div className="flex gap-9 min-w-max max-w-lg h-96 overflow-hidden">
+        <div className="flex flex-col gap-9 lg:flex-row lg:min-w-max lg:max-w-lg lg:h-96 lg:overflow-hidden">
           <div className="w-auto h-96">
             <img
               className="h-full w-full"
@@ -78,8 +78,8 @@ export function Home() {
             />
           </div>
           <div className="flex flex-col gap-5 max-w-xs">
-            <h2 className="text-xl font-semibold text-[#FFFCF9]">{actualMovie.title}</h2>
-            <span className="text-[#FFFCF9] text-base font-normal overflow-y-auto">{actualMovie.overview !== "" ? actualMovie.overview : "Esse filme não tem uma descrição pré definida!"}</span>
+            <h2 className="text-xl text-center font-semibold text-[#FFFCF9] lg:text-start">{actualMovie.title}</h2>
+            <span className="text-center px-4 text-[#FFFCF9] text-base font-normal overflow-y-auto lg:text-start lg:px-0">{actualMovie.overview !== "" ? actualMovie.overview : "Esse filme não tem uma descrição pré definida!"}</span>
           </div>
         </div>
       )}
@@ -96,7 +96,7 @@ export function Home() {
         </div>
         <span className="text-[#000] text-sm font-bold">Encontrar filme</span>
       </button>
-      <span className="text-[#FFFCF9] text-base font-normal">
+      <span className="text-center text-[#FFFCF9] text-base font-normal lg:text-start">
         Clique em "Encontrar filme" que traremos informações de algum filme para
         você assistir hoje.
       </span>
