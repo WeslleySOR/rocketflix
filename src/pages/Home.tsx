@@ -59,7 +59,7 @@ export function Home() {
         </h1>
       </div>
       {Object.keys(actualMovie).length !== 0 && (
-        <div className="flex flex-col gap-9 lg:mx-16 lg:flex-row lg:h-96 lg:overflow-hidden">
+        <div className="flex flex-col gap-9 justify-center lg:mx-16 lg:flex-row lg:h-96 lg:overflow-hidden">
           <div className="relative w-auto h-96">
             <img
               className="h-full w-full"
@@ -67,9 +67,9 @@ export function Home() {
               alt={`Poster do filme ${actualMovie.title}`}
             />
             <span
-              className={`w-12 h-12 absolute bottom-0 right-0 text-base text-[#F3FFF5]`}
+              className={`absolute top-0 right-0 text-base p-2 bg-purple-800 text-[#fff] rounded-bl-md`}
             >
-              2222
+              Média: {actualMovie.vote_average.toFixed(2)}
             </span>
           </div>
           <div className="flex flex-col gap-5 max-w-md">
