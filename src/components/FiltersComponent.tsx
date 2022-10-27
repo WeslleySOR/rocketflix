@@ -26,20 +26,21 @@ export function FiltersComponent() {
         onClick={() => setFilterOpened(!filterOpened)}
         className="w-fit flex gap-2 justify-center items-center bg-[#E9E6E3] p-4 rounded-md md:gap-4"
       >
-        <span className="text-[#000] text-xs font-bold md:text-sm">Filtros</span>{" "}
+        <span className="text-[#000] text-sm font-bold md:text-sm">Filtros</span>{" "}
         <img className="w-5 h-5 md:w-7 md:h-7" src="/assets/filter-icon.svg" alt="" />
       </button>
       <div
-        className={`absolute bottom-[120%] right-0 overflow-hidden rounded-md bg-[#262626] transition-all duration-300 ${
+        className={`absolute bottom-[120%] -right-[calc(100%-1.25rem)] overflow-hidden rounded-md bg-[#262626] transition-all duration-300 ${
           filterOpened ? "h-fit" : "h-0"
         }`}
       >
-        <div className="flex flex-col gap-4 py-6 px-10 rounded-md ring-2 ring-blue-500 ring-inset">
+        <div className="flex flex-col gap-2 py-6 px-10 rounded-md ring-2 ring-blue-500 ring-inset">
           <div className="flex flex-col">
             <span className="text-[#FFFCF9] text-sm">Escolha um gênero</span>
             <select
               value={withGenres}
               onChange={(e) => handleWithGenresFilter(parseInt(e.target.value))}
+              className="text-sm"
             >
               <option value={undefined}>Aleatório</option>
               <option value={28}>Ação</option>
@@ -64,10 +65,11 @@ export function FiltersComponent() {
             </select>
           </div>
           <div className="flex flex-col">
-            <span className="text-[#FFFCF9] text-base">Ordenar filmes por</span>
+            <span className="text-[#FFFCF9] text-sm">Ordenar filmes por</span>
             <select
               value={sortBy}
               onChange={(e) => handleSortByFilter(e.target.value)}
+              className="text-sm"
             >
               <option value="">Não ordenar</option>
               <option value="popularity.asc">Popularidade ASC</option>
@@ -79,11 +81,11 @@ export function FiltersComponent() {
             </select>
           </div>
           <div className="flex flex-col">
-            <span className="text-[#FFFCF9] text-base">
-              Quantidade mínima de avaliações
+            <span className="text-[#FFFCF9] text-sm">
+              Mínimo de avaliações
             </span>
             <input
-              className="text-center"
+              className="text-center text-sm"
               min="0"
               type="number"
               value={voteCountGte}
@@ -91,19 +93,19 @@ export function FiltersComponent() {
             />
           </div>
           <div className="flex gap-2 mx-auto items-center">
-            <span className="text-[#FFFCF9] text-base">Incluir +18 ?</span>
+            <span className="text-[#FFFCF9] text-sm">Incluir +18 ?</span>
             <input
               type="checkbox"
               checked={includeAdult}
               onChange={(e) => handleIncludeAdult(e.target.checked)}
             />
           </div>
-          <div className="flex gap-4 items-center justify-center">
+          <div className="flex gap-4 items-center justify-center mt-2">
             <button onClick={saveFilters} className="w-fit flex gap-4 justify-center items-center bg-blue-600 py-2 px-6 rounded-md">
-              <span className="text-[#fff] text-base">Salvar</span>
+              <span className="text-[#fff] text-sm">Salvar</span>
             </button>
             <button onClick={cleanAllFilters} className="w-fit flex gap-4 justify-center items-center bg-red-600 py-2 px-6 rounded-md">
-              <span className="text-[#fff] text-base">Limpar</span>
+              <span className="text-[#fff] text-sm">Limpar</span>
             </button>
           </div>
         </div>
