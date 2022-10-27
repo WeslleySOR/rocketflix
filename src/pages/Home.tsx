@@ -45,10 +45,7 @@ export function Home() {
       });
   };
   return (
-    <main className="relative min-h-screen w-full flex flex-col justify-center gap-8 pt-12 pb-16">
-      <div className="absolute top-4 right-4">
-        <FiltersComponent />
-      </div>
+    <main className="min-h-screen w-full flex flex-col justify-center gap-8">
       <div className="flex flex-col w-full items-center gap-3">
         <div className="w-20 h-14">
           <img
@@ -90,19 +87,22 @@ export function Home() {
           </div>
         </div>
       )}
-      <button
-        onClick={() => getMoviesFromApi()}
-        className="w-fit flex gap-4 justify-center items-center bg-[#E9E6E3] p-4 rounded-md mx-auto"
-      >
-        <div className="w-9 h-6">
-          <img
-            className="h-full w-full"
-            src="/assets/shuffle.svg"
-            alt="Icone de sortear"
-          />
-        </div>
-        <span className="text-[#000] text-sm font-bold">Encontrar filme</span>
-      </button>
+      <div className="flex gap-4 mx-auto">
+        <button
+          onClick={() => getMoviesFromApi()}
+          className="w-fit flex gap-4 justify-center items-center bg-[#E9E6E3] p-4 rounded-md"
+        >
+          <div className="w-9 h-6">
+            <img
+              className="h-full w-full"
+              src="/assets/shuffle.svg"
+              alt="Icone de sortear"
+            />
+          </div>
+          <span className="text-[#000] text-sm font-bold">Encontrar filme</span>
+        </button>
+        <FiltersComponent />
+      </div>
       <span className="w-fit text-center text-[#FFFCF9] text-base font-normal mx-auto lg:text-start">
         Clique em "Encontrar filme" que traremos informações de algum filme para
         você assistir hoje.

@@ -13,6 +13,7 @@ type FiltersContextType = {
   handleWithGenresFilter: (newValue: number | undefined) => void;
   handleVoteCountGte: (newValue: number) => void;
   handleIncludeAdult: (newValue: boolean) => void;
+  cleanAllFilters: () => void;
 };
 
 export const FiltersContext = createContext<FiltersContextType>(
@@ -41,6 +42,13 @@ export const FiltersContextProvider = ({ children }: FiltersContextProps) => {
     return setIncludeAdult(newValue);
   };
 
+  const cleanAllFilters = () => {
+    setSortBy("");
+    setWithGenres(undefined);
+    setVoteCountGte(0);
+    setIncludeAdult(false);
+  };
+
   return (
     <FiltersContext.Provider
       value={{
@@ -52,6 +60,7 @@ export const FiltersContextProvider = ({ children }: FiltersContextProps) => {
         handleWithGenresFilter,
         handleVoteCountGte,
         handleIncludeAdult,
+        cleanAllFilters,
       }}
     >
       {children}

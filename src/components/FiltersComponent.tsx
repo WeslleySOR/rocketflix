@@ -14,22 +14,27 @@ export function FiltersComponent() {
     handleSortByFilter,
     handleVoteCountGte,
     handleWithGenresFilter,
+    cleanAllFilters,
   } = useContext(FiltersContext);
 
+  const saveFilters = () => {
+    return setFilterOpened(false);
+  }
   return (
     <div className="relative">
       <button
         onClick={() => setFilterOpened(!filterOpened)}
-        className="flex items-center gap-2 py-2 px-4 bg-purple-600 hover:bg-purple-700 text-lg text-[#fff] rounded-md"
+        className="w-fit flex gap-4 justify-center items-center bg-[#E9E6E3] p-4 rounded-md"
       >
-        Filtros <img className="w-7 h-7" src="/assets/filter-icon.svg" alt="" />
+        <span className="text-[#000] text-sm font-bold">Filtros</span>{" "}
+        <img className="w-7 h-7" src="/assets/filter-icon.svg" alt="" />
       </button>
       <div
-        className={`absolute top-full right-0 overflow-hidden rounded-md bg-[#262626] transition-all duration-300 ${
+        className={`absolute bottom-[120%] right-0 overflow-hidden rounded-md bg-[#262626] transition-all duration-300 ${
           filterOpened ? "h-fit" : "h-0"
         }`}
       >
-        <div className="flex flex-col gap-6 py-6 px-12 rounded-md ring-2 ring-purple-800 ring-inset">
+        <div className="flex flex-col gap-4 py-6 px-10 rounded-md ring-2 ring-blue-500 ring-inset">
           <div className="flex flex-col">
             <span className="text-[#FFFCF9] text-sm">Escolha um gênero</span>
             <select
@@ -78,6 +83,7 @@ export function FiltersComponent() {
               Quantidade mínima de avaliações
             </span>
             <input
+              className="text-center"
               min="0"
               type="number"
               value={voteCountGte}
@@ -91,6 +97,14 @@ export function FiltersComponent() {
               checked={includeAdult}
               onChange={(e) => handleIncludeAdult(e.target.checked)}
             />
+          </div>
+          <div className="flex gap-4 items-center justify-center">
+            <button onClick={saveFilters} className="w-fit flex gap-4 justify-center items-center bg-blue-600 py-2 px-6 rounded-md">
+              <span className="text-[#fff] text-base">Salvar</span>
+            </button>
+            <button onClick={cleanAllFilters} className="w-fit flex gap-4 justify-center items-center bg-red-600 py-2 px-6 rounded-md">
+              <span className="text-[#fff] text-base">Limpar</span>
+            </button>
           </div>
         </div>
       </div>
