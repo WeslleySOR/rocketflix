@@ -20,10 +20,14 @@ export function FiltersComponent() {
   const saveFilters = () => {
     return setFilterOpened(false);
   }
+
+  const sendMessage = () => {
+    alert("Função em desenvolvimento.")
+  }
   return (
     <div className="relative">
       <button
-        onClick={() => setFilterOpened(!filterOpened)}
+        onClick={sendMessage}
         className="w-fit flex gap-2 justify-center items-center bg-[#E9E6E3] p-4 rounded-md md:gap-4"
       >
         <span className="text-[#000] text-sm font-bold md:text-sm">Filtros</span>{" "}
