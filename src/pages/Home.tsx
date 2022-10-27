@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FiltersComponent } from "../components/FiltersComponent";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { FiltersContext } from "../contexts/FiltersContext";
@@ -56,12 +56,18 @@ export function Home() {
       )
       .then((response) => {
         setActualMovie(response.data);
-        if (width < 768) window.scrollTo(0, 295);
       });
   };
+  useEffect(() => {
+    if (width < 768 && Object.keys(actualMovie).length !== 0) window.scrollTo(0, 295);
+  }, [actualMovie]);
   return (
     <>
-      <main className={`min-h-screen w-full flex flex-col justify-center gap-8 ${Object.keys(actualMovie).length !== 0 ? 'my-8' : 'my-0'} md:my-0`}>
+      <main
+        className={`min-h-screen w-full flex flex-col justify-center gap-8 ${
+          Object.keys(actualMovie).length !== 0 ? "my-8" : "my-0"
+        } md:my-0`}
+      >
         <div className="flex flex-col w-full items-center gap-3">
           <div className="w-20 h-14">
             <img
@@ -117,10 +123,7 @@ export function Home() {
           </div>
         )}
         {width >= 768 && (
-          <footer
-            id="web-footer"
-            className="flex flex-col gap-4"
-          >
+          <footer id="web-footer" className="flex flex-col gap-4">
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => getMoviesFromApi()}
