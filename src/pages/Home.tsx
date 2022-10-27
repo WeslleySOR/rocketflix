@@ -60,7 +60,6 @@ export function Home() {
               <img
                 id="movie-poster"
                 onLoad={() => handleLoadingImage(false)}
-                onError={() => handleLoadingImage(false)}
                 className="h-full w-full"
                 src={`${movie.poster_path === null ? '' : import.meta.env.VITE_IMG_URL + movie.poster_path}`}
                 alt={`Poster do filme ${movie.title}`}
