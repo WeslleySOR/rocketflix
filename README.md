@@ -8,7 +8,7 @@ Neste desafio você deverá utilizar a API do themoviedb.org para exibir um film
 ##### Adicionado uma indicação de média de nota no canto superior direito da imagem.
 ##### Filtro dinamico adicionado ( ainda nao está 100% ).
 ##### Botão para descer para o fim da página adicionado ao layout mobile.
-##### Component de loadingspinner ao trocar de filme.
+##### Loading Spinner no poster ao trocar de filme.
 
 ## Problemas:
 ##### Por limitação da api só utilizei 500 paginas de filmes, mesmo tendo 35614 páginas.
