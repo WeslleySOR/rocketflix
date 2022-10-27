@@ -21,9 +21,9 @@ export function Home() {
     if (
       width < 768 &&
       Object.keys(movie).length !== 0 &&
-      window.scrollY !== 295
+      window.scrollY !== 270
     ) {
-      window.scrollTo(0, 295);
+      window.scrollTo(0, 270);
     }
   }, [movie]);
   return (
