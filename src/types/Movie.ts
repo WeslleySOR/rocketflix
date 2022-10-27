@@ -14,7 +14,7 @@ export interface IMovie {
   original_title: string;
   overview: string | null;
   popularity: number;
-  poster_path: string;
+  poster_path: string | null;
   production_companies: {
     name: string;
     id: number;
