@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { FiltersComponent } from "../components/FiltersComponent";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 import { FiltersContext } from "../contexts/FiltersContext";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { instance } from "../services/axios";
@@ -10,6 +11,7 @@ import { IMovieListItem, IMovieList } from "../types/MovieList";
 export function Home() {
   const { width } = useWindowDimensions();
   const [actualMovie, setActualMovie] = useState<IMovie>({} as IMovie);
+  const [loadingImage, setLoadingImage] = useState(true);
 
   const { sortBy, withGenres, voteCountGte, includeAdult } =
     useContext(FiltersContext);
@@ -19,7 +21,17 @@ export function Home() {
     return dateTime.getFullYear();
   };
 
+  const handleLoadingImage = (newValue: boolean) => {
+    return setLoadingImage(newValue);
+  };
+
   const getMoviesFromApi = async () => {
+    var image = document.getElementById("movie-poster") as HTMLImageElement;
+    if(image) {
+      image.src = "";
+      image.alt = "";
+    }
+    setLoadingImage(true);
     const randomNumber = Math.floor(Math.random() * 499) + 1;
     var discoverResponseMovies: IMovieListItem[] = [];
     await instance
@@ -64,10 +76,14 @@ export function Home() {
       {Object.keys(actualMovie).length !== 0 && (
         <div className="flex flex-col gap-9 w-full md:w-[42.25rem] md:mx-auto md:flex-row md:h-96 md:overflow-hidden">
           <div className="relative w-full h-[calc(100vw+(100vw*0.3))] mx-auto sm:w-64 sm:h-96">
+            {loadingImage && (
+              <div className="absolute left-[calc(50%-1.5rem)] top-[calc(50%-1.5rem)]">
+                <LoadingSpinner />
+              </div>
+            )}
             <img
-              onError={(e) => {
-                e.currentTarget.src = "/assets/image-not-found.png";
-              }}
+              id="movie-poster"
+              onLoad={() => setLoadingImage(false)}
               className="h-full w-full"
               src={`${import.meta.env.VITE_IMG_URL}${actualMovie.poster_path}`}
               alt={`Poster do filme ${actualMovie.title}`}
