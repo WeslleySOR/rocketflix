@@ -59,7 +59,9 @@ export function Home() {
       });
   };
   useEffect(() => {
-    if (width < 768 && Object.keys(actualMovie).length !== 0) window.scrollTo(0, 295);
+    if (width < 768 && Object.keys(actualMovie).length !== 0 && window.scrollY !== 295) {
+      window.scrollTo(0, 295);
+    }
   }, [actualMovie]);
   return (
     <>
