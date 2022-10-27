@@ -24,10 +24,10 @@ export function FiltersComponent() {
     <div className="relative">
       <button
         onClick={() => setFilterOpened(!filterOpened)}
-        className="w-fit flex gap-4 justify-center items-center bg-[#E9E6E3] p-4 rounded-md"
+        className="w-fit flex gap-2 justify-center items-center bg-[#E9E6E3] p-4 rounded-md md:gap-4"
       >
-        <span className="text-[#000] text-sm font-bold">Filtros</span>{" "}
-        <img className="w-7 h-7" src="/assets/filter-icon.svg" alt="" />
+        <span className="text-[#000] text-xs font-bold md:text-sm">Filtros</span>{" "}
+        <img className="w-5 h-5 md:w-7 md:h-7" src="/assets/filter-icon.svg" alt="" />
       </button>
       <div
         className={`absolute bottom-[120%] right-0 overflow-hidden rounded-md bg-[#262626] transition-all duration-300 ${
