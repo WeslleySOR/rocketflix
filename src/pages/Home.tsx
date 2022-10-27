@@ -59,8 +59,8 @@ export function Home() {
         </h1>
       </div>
       {Object.keys(actualMovie).length !== 0 && (
-        <div className="flex flex-col gap-9 justify-center lg:mx-16 lg:flex-row lg:h-96 lg:overflow-hidden">
-          <div className="relative w-auto h-96">
+        <div className="flex flex-col gap-9 w-full lg:w-[42.25rem] lg:mx-auto lg:flex-row lg:h-96 lg:overflow-hidden">
+          <div className="relative w-64 h-96">
             <img
               className="h-full w-full"
               src={`${import.meta.env.VITE_IMG_URL}${actualMovie.poster_path}`}
@@ -72,7 +72,7 @@ export function Home() {
               Média: {actualMovie.vote_average.toFixed(2)}
             </span>
           </div>
-          <div className="flex flex-col gap-5 max-w-md">
+          <div className="flex flex-col gap-5 max-w-sm">
             <h2 className="text-xl text-center font-semibold text-[#FFFCF9] lg:text-start">
               {actualMovie.title} -{" "}
               <span className="underline underline-offset-4">
