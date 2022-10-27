@@ -44,7 +44,7 @@ export function Home() {
       )
       .then((response) => {
         setActualMovie(response.data);
-        if(width < 768) window.scrollTo(0, 180);
+        if (width < 768) window.scrollTo(0, 180);
       });
   };
   return (
@@ -65,6 +65,10 @@ export function Home() {
         <div className="flex flex-col gap-9 w-full md:w-[42.25rem] md:mx-auto md:flex-row md:h-96 md:overflow-hidden">
           <div className="relative w-full h-[calc(100vw+(100vw*0.3))] mx-auto sm:w-64 sm:h-96">
             <img
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.src = "/assets/image-not-found.png";
+              }}
               className="h-full w-full"
               src={`${import.meta.env.VITE_IMG_URL}${actualMovie.poster_path}`}
               alt={`Poster do filme ${actualMovie.title}`}
