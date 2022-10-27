@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { FiltersComponent } from "../components/FiltersComponent";
+import { FiltersContext } from "../contexts/FiltersContext";
 import { instance } from "../services/axios";
 
 import { IMovie } from "../types/Movie";
@@ -7,11 +9,8 @@ import { IMovieListItem, IMovieList } from "../types/MovieList";
 export function Home() {
   const [actualMovie, setActualMovie] = useState<IMovie>({} as IMovie);
 
-  const [sortBy, setSortBy] = useState("");
-  const [withGenres, setWithGenres] = useState<number>();
-  
-  const [voteCountGte, setVoteCountGte] = useState(0);
-  const [includeAdult, setIncludeAdult] = useState(false);
+  const { sortBy, withGenres, voteCountGte, includeAdult } =
+    useContext(FiltersContext);
 
   const convertStringDateTimeToDateTime = (stringDateTime: string) => {
     const dateTime = new Date(stringDateTime);
@@ -46,7 +45,10 @@ export function Home() {
       });
   };
   return (
-    <main className="min-h-screen w-full flex flex-col justify-center gap-8 pt-12 pb-16">
+    <main className="relative min-h-screen w-full flex flex-col justify-center gap-8 pt-12 pb-16">
+      <div className="absolute top-4 right-4">
+        <FiltersComponent />
+      </div>
       <div className="flex flex-col w-full items-center gap-3">
         <div className="w-20 h-14">
           <img
@@ -88,65 +90,6 @@ export function Home() {
           </div>
         </div>
       )}
-      <div className="flex gap-4 mx-auto">
-        <div className="flex flex-col">
-          <span className="text-[#FFFCF9] text-base">Escolha um gênero</span>
-          <select value={withGenres} onChange={(e) => setWithGenres(parseInt(e.target.value))}>
-            <option value={undefined}>Aleatório</option>
-            <option value={28}>Ação</option>
-            <option value={12}>Aventura</option>
-            <option value={16}>Animação</option>
-            <option value={35}>Comédia</option>
-            <option value={80}>Crime</option>
-            <option value={99}>Documentário</option>
-            <option value={18}>Drama</option>
-            <option value={10751}>Família</option>
-            <option value={14}>Fantasia</option>
-            <option value={36}>História</option>
-            <option value={27}>Terror</option>
-            <option value={10402}>Musica</option>
-            <option value={9648}>Mistério</option>
-            <option value={10749}>Romance</option>
-            <option value={878}>Ficção científica</option>
-            <option value={10770}>Cinema TV</option>
-            <option value={53}>Thriller</option>
-            <option value={10752}>Guerra</option>
-            <option value={37}>Faroeste</option>
-          </select>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-[#FFFCF9] text-base">Ordenar filmes por</span>
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-            <option value="">Não ordenar</option>
-            <option value="popularity.asc">Popularidade ASC</option>
-            <option value="popularity.desc">Popularidade DESC</option>
-            <option value="release_date.asc">Data de lançamento ASC</option>
-            <option value="release_date.desc">Data de lançamento DESC</option>
-            <option value="vote_average.asc">Média de nota ASC</option>
-            <option value="vote_average.desc">Média de nota DESC</option>
-          </select>
-        </div>
-        <div className="flex mt-auto gap-2">
-          <span className="text-[#FFFCF9] text-base">
-            Quantidade mínima de avaliações
-          </span>
-          <input
-            min="0"
-            className="w-12"
-            type="number"
-            value={voteCountGte}
-            onChange={(e) => setVoteCountGte(parseInt(e.target.value))}
-          />
-        </div>
-        <div className="flex mt-auto gap-2">
-          <span className="text-[#FFFCF9] text-base">Incluir +18</span>
-          <input
-            type="checkbox"
-            checked={includeAdult}
-            onChange={(e) => setIncludeAdult(e.target.checked)}
-          />
-        </div>
-      </div>
       <button
         onClick={() => getMoviesFromApi()}
         className="w-fit flex gap-4 justify-center items-center bg-[#E9E6E3] p-4 rounded-md mx-auto"
