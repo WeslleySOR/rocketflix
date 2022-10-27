@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import { FiltersComponent } from "../components/FiltersComponent";
 import { FiltersContext } from "../contexts/FiltersContext";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 import { instance } from "../services/axios";
 
 import { IMovie } from "../types/Movie";
 import { IMovieListItem, IMovieList } from "../types/MovieList";
 
 export function Home() {
+  const { width } = useWindowDimensions();
   const [actualMovie, setActualMovie] = useState<IMovie>({} as IMovie);
 
   const { sortBy, withGenres, voteCountGte, includeAdult } =
@@ -42,6 +44,7 @@ export function Home() {
       )
       .then((response) => {
         setActualMovie(response.data);
+        if(width < 768) window.scrollTo(0, 180);
       });
   };
   return (
@@ -54,13 +57,13 @@ export function Home() {
             alt="Icone de sortear"
           />
         </div>
-        <h1 className="text-center text-[#FFFCF9] text-4xl font-bold lg:text-start">
+        <h1 className="text-center text-[#FFFCF9] text-4xl font-bold md:text-start">
           Não sabe o que assistir?
         </h1>
       </div>
       {Object.keys(actualMovie).length !== 0 && (
-        <div className="flex flex-col gap-9 w-full lg:w-[42.25rem] lg:mx-auto lg:flex-row lg:h-96 lg:overflow-hidden">
-          <div className="relative w-64 h-96">
+        <div className="flex flex-col gap-9 w-full md:w-[42.25rem] md:mx-auto md:flex-row md:h-96 md:overflow-hidden">
+          <div className="relative w-full h-[calc(100vw+(100vw*0.3))] mx-auto sm:w-64 sm:h-96">
             <img
               className="h-full w-full"
               src={`${import.meta.env.VITE_IMG_URL}${actualMovie.poster_path}`}
@@ -72,14 +75,14 @@ export function Home() {
               Média: {actualMovie.vote_average.toFixed(2)}
             </span>
           </div>
-          <div className="flex flex-col gap-5 max-w-sm">
-            <h2 className="text-xl text-center font-semibold text-[#FFFCF9] lg:text-start">
+          <div className="flex flex-col gap-5 max-w-sm mx-auto md:mx-0">
+            <h2 className="text-xl text-center font-semibold text-[#FFFCF9] md:text-start">
               {actualMovie.title} -{" "}
               <span className="underline underline-offset-4">
                 {convertStringDateTimeToDateTime(actualMovie.release_date)}
               </span>
             </h2>
-            <span className="text-center px-4 text-[#FFFCF9] text-base font-normal overflow-y-auto lg:text-start lg:px-0">
+            <span className="text-center px-4 text-[#FFFCF9] text-base font-normal overflow-y-auto md:text-start md:px-0">
               {actualMovie.overview !== ""
                 ? actualMovie.overview
                 : "Esse filme não tem uma descrição pré definida!"}
@@ -103,7 +106,7 @@ export function Home() {
         </button>
         <FiltersComponent />
       </div>
-      <span className="w-fit text-center text-[#FFFCF9] text-base font-normal mx-auto lg:text-start">
+      <span className="w-fit text-center text-[#FFFCF9] text-base font-normal mx-auto md:text-start">
         Clique em "Encontrar filme" que traremos informações de algum filme para
         você assistir hoje.
       </span>
